@@ -18,11 +18,11 @@ public class Order
     public Guid UserId { get; set; }
 
     [BsonRepresentation(MongoDB.Bson.BsonType.DateTime)]
-    public DateTime OrderDate { get; set; }
+    public DateTime Date { get; set; }
 
     [BsonRepresentation(MongoDB.Bson.BsonType.Double)]
 
     public decimal TotalBill { get; set; }
 
-    public List<OrderItem> Items { get; set; } = [];
+    public List<OrderItem> OrderItems { get; set; } = [];
 }

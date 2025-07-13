@@ -1,8 +1,8 @@
 ﻿using BusinessLogic.Entities;
-using DataAccess.RespositoryContracts;
+using BusinessLogic.RespositoryContracts;
 using MongoDB.Driver;
 
-namespace DataAccess.Repositories;
+namespace BusinessLogic.Repositories;
 
 /// <summary>
 /// MongoDB implementation of IOrdersRepository.

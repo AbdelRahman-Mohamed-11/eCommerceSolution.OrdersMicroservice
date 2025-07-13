@@ -1,10 +1,7 @@
 ﻿using BusinessLogic.Entities;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace DataAccess.RespositoryContracts;
+namespace BusinessLogic.RespositoryContracts;
 
 /// <summary>
 /// Defines the contract for order-related data operations.
