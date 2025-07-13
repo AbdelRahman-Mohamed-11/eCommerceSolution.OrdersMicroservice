@@ -5,6 +5,7 @@ using BusinessLogic.RespositoryContracts;
 using MongoDB.Driver;
 using Mapster;
 using FluentValidation;
+using MongoDB.Bson;
 
 namespace BusinessLogic.Services;
 
@@ -15,7 +16,7 @@ public class OrderService(
 {
     public async Task<List<OrderResponse?>> GetOrdersAsync()
     {
-        var orders = await ordersRepository.GetAllOrdersAsync();
+        IEnumerable<Order>? orders = await ordersRepository.GetAllOrdersAsync();
         return orders.Adapt<List<OrderResponse?>>();
     }
 
@@ -38,7 +39,9 @@ public class OrderService(
             throw new ValidationException(validationResult.Errors);
 
         var order = orderAddRequest.Adapt<Order>();
-        order.TotalBill = orderAddRequest.OrderItems.Sum(i => i.UnitPrice * i.Quantity);
+        order._id = ObjectId.GenerateNewId();
+        order.Id = Guid.NewGuid();
+        order.TotalBill = orderAddRequest.Items.Sum(i => i.UnitPrice * i.Quantity);
         var createdOrder = await ordersRepository.AddOrderAsync(order);
         return createdOrder?.Adapt<OrderResponse>();
     }

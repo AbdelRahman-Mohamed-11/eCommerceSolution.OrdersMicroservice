@@ -9,7 +9,6 @@ public class OrderItemUpdateRequestToOrderItemMappingProfile : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<OrderItemUpdateRequest, OrderItem>()
-            .Ignore(dest => dest.Id)
-            .Ignore(dest => dest.TotalPrice);
+            .Map(dest => dest.TotalPrice, src => src.UnitPrice * src.Quantity);
     }
 }

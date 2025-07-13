@@ -7,4 +7,4 @@ Guid Id,
 Guid UserId,
 DateTime Date,
 decimal TotalBill,
-List<OrderItemResponse> OrderItems);
+List<OrderItemResponse> Items);

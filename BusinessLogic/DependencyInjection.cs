@@ -17,6 +17,7 @@ public static class DependencyInjection
 
         services.AddScoped<IOrdersRepository, OrderRepository>();
 
+        services.AddScoped<IOrderService, OrderService>();
 
         // Register Mapster mapping profiles
         services.AddMapster();

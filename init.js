@@ -5,7 +5,7 @@ var sampleOrders = [
         "UserId": "123e4567-e89b-12d3-a456-426614174001",
         "OrderDate": new Date("2024-01-15T10:30:00Z"),
         "TotalBill": 299.97,
-        "OrderItems": [
+        "Items": [
             {
                 "_id": 1,
                 "ProductId": "789e0123-e89b-12d3-a456-426614174001",
@@ -23,11 +23,11 @@ var sampleOrders = [
         ]
     },
     {
-        "_id": "550e8400-e29b-41d4-a716-446655440002",
+        "id": "550e8400-e29b-41d4-a716-446655440002",
         "UserId": "123e4567-e89b-12d3-a456-426614174002",
         "OrderDate": new Date("2024-01-16T14:45:00Z"),
         "TotalBill": 149.95,
-        "OrderItems": [
+        "Items": [
             {
                 "_id": 1,
                 "ProductId": "789e0123-e89b-12d3-a456-426614174003",
@@ -42,7 +42,7 @@ var sampleOrders = [
         "UserId": "123e4567-e89b-12d3-a456-426614174003",
         "OrderDate": new Date("2024-01-17T09:15:00Z"),
         "TotalBill": 599.96,
-        "OrderItems": [
+        "Items": [
             {
                 "_id": 1,
                 "ProductId": "789e0123-e89b-12d3-a456-426614174004",
@@ -64,7 +64,7 @@ var sampleOrders = [
         "UserId": "123e4567-e89b-12d3-a456-426614174001",
         "OrderDate": new Date("2024-01-18T16:20:00Z"),
         "TotalBill": 79.98,
-        "OrderItems": [
+        "Items": [
             {
                 "_id": 1,
                 "ProductId": "789e0123-e89b-12d3-a456-426614174006",
@@ -79,7 +79,7 @@ var sampleOrders = [
         "UserId": "123e4567-e89b-12d3-a456-426614174004",
         "OrderDate": new Date("2024-01-19T11:30:00Z"),
         "TotalBill": 449.94,
-        "OrderItems": [
+        "Items": [
             {
                 "_id": 1,
                 "ProductId": "789e0123-e89b-12d3-a456-426614174007",

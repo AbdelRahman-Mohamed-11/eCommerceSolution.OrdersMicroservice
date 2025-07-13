@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Entities;
 using BusinessLogic.RespositoryContracts;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace BusinessLogic.Repositories;
 

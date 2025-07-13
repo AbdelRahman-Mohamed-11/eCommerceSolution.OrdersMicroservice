@@ -1,11 +1,12 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel;
 
 namespace BusinessLogic.Entities;
 
 public class OrderItem
 {
-    [BsonId]
+    [BsonElement("_id")]
     public int Id { get; set; }
 
     [BsonRepresentation(MongoDB.Bson.BsonType.String)]

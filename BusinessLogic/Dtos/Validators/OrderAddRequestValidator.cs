@@ -9,7 +9,7 @@ public class OrderAddRequestValidator : AbstractValidator<OrderAddRequest>
     {
         RuleFor(x => x.UserId).NotEmpty();
         RuleFor(x => x.Date).NotEqual(default(DateTime));
-        RuleFor(x => x.OrderItems).NotNull().NotEmpty();
-        RuleForEach(x => x.OrderItems).SetValidator(new OrderItemAddRequestValidator());
+        RuleFor(x => x.Items).NotNull().NotEmpty();
+        RuleForEach(x => x.Items).SetValidator(new OrderItemAddRequestValidator());
     }
 } 

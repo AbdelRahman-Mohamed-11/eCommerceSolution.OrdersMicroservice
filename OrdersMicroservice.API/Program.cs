@@ -10,7 +10,12 @@ builder.Services.AddBusinessLogic(builder.Configuration)
 
 builder.Services.AddControllers();
 
-builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddValidatorsFromAssemblyContaining<BusinessLogic.Dtos.Validators.OrderAddRequestValidator>();
+
+// Add Swagger services
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddCors(options =>
 {

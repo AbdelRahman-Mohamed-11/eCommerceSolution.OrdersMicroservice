@@ -2,4 +2,4 @@
 
 namespace BusinessLogic.Dtos.Orders;
 
-public record OrderAddRequest(Guid UserId, DateTime Date, List<OrderItemAddRequest> OrderItems);
+public record OrderAddRequest(Guid UserId, DateTime Date, List<OrderItemAddRequest> Items);

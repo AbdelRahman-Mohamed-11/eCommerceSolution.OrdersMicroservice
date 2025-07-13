@@ -3,6 +3,8 @@ using BusinessLogic.Services;
 using BusinessLogic.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using FluentValidation;
+using MongoDB.Bson;
 
 namespace OrdersMicroservice.API.Controllers;
 
@@ -36,7 +38,7 @@ public class OrdersController(IOrderService orderService) : ControllerBase
     [HttpGet("search/productid/{productID}")]
     public async Task<ActionResult<List<OrderResponse?>>> GetOrdersByProductID(Guid productID)
     {
-        var filter = Builders<Order>.Filter.ElemMatch(temp => temp.OrderItems, 
+        var filter = Builders<Order>.Filter.ElemMatch(temp => temp.Items, 
             Builders<OrderItem>.Filter.Eq(tempProduct => tempProduct.ProductId, productID));
 
         var orders = await orderService.GetOrdersByConditionAsync(filter);
@@ -47,7 +49,7 @@ public class OrdersController(IOrderService orderService) : ControllerBase
     [HttpGet("search/orderDate/{orderDate}")]
     public async Task<ActionResult<List<OrderResponse?>>> GetOrdersByOrderDate(DateTime orderDate)
     {
-        var filter = Builders<Order>.Filter.Eq(temp => temp.Date.ToString("yyyy-MM-dd"), 
+        var filter = Builders<Order>.Filter.Eq(temp => temp.OrderDate.ToString("yyyy-MM-dd"), 
             orderDate.ToString("yyyy-MM-dd"));
 
         var orders = await orderService.GetOrdersByConditionAsync(filter);
@@ -58,34 +60,20 @@ public class OrdersController(IOrderService orderService) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<OrderResponse?>> Create([FromBody] OrderAddRequest orderAddRequest)
     {
-        try
-        {
-            var order = await orderService.AddOrderAsync(orderAddRequest);
-            return CreatedAtAction(nameof(GetOrderByOrderID), new { orderID = order?.Id }, order);
-        }
-        catch (FluentValidation.ValidationException ex)
-        {
-            return BadRequest(ex.Errors);
-        }
+        var order = await orderService.AddOrderAsync(orderAddRequest);
+        return CreatedAtAction(nameof(GetOrderByOrderID), new { orderID = order?.Id }, order);
     }
 
     // PUT: /api/Orders
     [HttpPut]
     public async Task<ActionResult<OrderResponse?>> Update([FromBody] OrderUpdateRequest orderUpdateRequest)
     {
-        try
-        {
-            var order = await orderService.UpdateOrderAsync(orderUpdateRequest);
+        var order = await orderService.UpdateOrderAsync(orderUpdateRequest);
+        
+        if (order == null)
+            return NotFound();
             
-            if (order == null)
-                return NotFound();
-                
-            return Ok(order);
-        }
-        catch (FluentValidation.ValidationException ex)
-        {
-            return BadRequest(ex.Errors);
-        }
+        return Ok(order);
     }
 
     // DELETE: /api/Orders/{orderID}

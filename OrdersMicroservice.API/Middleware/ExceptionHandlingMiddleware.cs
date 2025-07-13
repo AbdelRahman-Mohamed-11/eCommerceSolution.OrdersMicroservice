@@ -1,4 +1,6 @@
-﻿namespace OrdersMicroservice.API.Middleware;
+﻿using FluentValidation;
+
+namespace OrdersMicroservice.API.Middleware;
 
 public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
 {
@@ -7,6 +9,17 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
         try
         {
             await next(httpContext);
+        }
+        catch (ValidationException ex)
+        {
+            logger.LogWarning("Validation error: {ValidationErrors}", string.Join(", ", ex.Errors.Select(e => e.ErrorMessage)));
+            
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await httpContext.Response.WriteAsJsonAsync(new 
+            { 
+                Message = "Validation failed", 
+                Errors = ex.Errors.Select(e => new { Field = e.PropertyName, Message = e.ErrorMessage })
+            });
         }
         catch (Exception ex)
         {
